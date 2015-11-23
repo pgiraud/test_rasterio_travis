@@ -1,0 +1,26 @@
+language: python
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+addons:
+  apt:
+    packages:
+    - libgdal-dev
+    - libgdal1-dev
+    - libgdal1h
+
+python:
+- 2.7
+
+sudo: false
+
+install:
+- virtualenv venv
+- source venv/bin/activate
+- pip install numpy==1.10.1
+- pip install rasterio==0.29.0
+
+- createdb foo -U postgres
+- psql -d foo -c 'CREATE EXTENSION postgis;' -U postgres
